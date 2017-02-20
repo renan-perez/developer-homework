@@ -1,0 +1,64 @@
+
+html {height: 100%}
+
+body {
+    margin: 0 auto;
+    background-image: url('../img/background.jpg');
+    background-attachment: fixed;
+    position:relative;
+    height: 100%
+}
+
+.full-width {
+    display:block !important;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.main-container {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    position: relative;
+    overflow: auto;
+}
+
+.main-container .content {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    transform: translateY(-50%);
+    overflow: auto;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.panel-body {
+    height: 300px;
+}
+
+.post-content {
+    vertical-align: middle;
+    background-color: #efefef;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.geolocation::before {
+    font-family: FontAwesome;
+    margin-left: 10px;
+    margin-right: 5px;
+    content: "\f124";
+}
+
+.temperature::before {
+    font-family: FontAwesome;
+    margin-left: 10px;
+    margin-right: 5px; 
+    content: "\f2c9";
+}

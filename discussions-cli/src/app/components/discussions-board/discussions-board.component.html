@@ -1,0 +1,96 @@
+<section class="posts-content">
+  <ul class="list-group">
+    <li *ngIf="!postSuperior" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div>
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea class="form-control" rows="5" id="comment" [(ngModel)]="commentContent"></textarea>
+        </div>
+        <p class="button-reply">
+          <button class="btn btn-primary btn-sm" (click)="reply(commentContent, null)">POST</button>
+        </p>
+      </div>
+    </li>
+    <li *ngFor="let post of userPosts" class="list-group-item list-group-item-action flex-column align-items-start" [style.active]="userPosts.length == 1">
+      <div class="d-flex w-100 justify-content-between">
+        <h4 class="mb-1">
+          {{post.id.user.name}}
+          <small class="pull-right">{{formatDate(post.id.dateTime)}}</small>
+        </h4>
+        
+      </div>
+      <p class="mb-1 post-content">{{post.content}}</p>
+      <small>{{post.location.adress}}</small>
+      <small class="geolocation" *ngIf="post.location">{{post.location.latitude}}, {{post.location.longitude}}</small>
+      <small class="temperature">{{post.currentTemperature}}</small>
+      
+      <a href="javascript:void(0)" (click)="getResponses(post, false)" class="badge badge-default badge-pill">
+        {{post.responseAmount}}
+      </a>
+      <br>
+
+      <nav>
+        <ul class="list-inline">
+          <li *ngIf="!post.reply"><a href="javascript:void(0)" (click)="initReply(post)">Reply</a></li>
+          <li><a href="javascript:void(0)" *ngIf="deleteAllowed(post.id)" (click)="deletePost(post.id)">Delete</a></li>
+        </ul>
+      </nav>
+
+      <div *ngIf="post.reply">
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea class="form-control" rows="5" id="comment" [(ngModel)]="post.replyContent"></textarea>
+        </div>
+        <p class="button-reply">
+          <button class="btn btn-success btn-xs" (click)="reply(post.replyContent, post)">Reply</button>
+          <button class="btn btn-danger btn-xs" (click)="cancelReply(post)">Cancel</button>
+        </p>
+      </div>
+
+      <ul class="list-group margin-top-20px">
+          <button class="btn btn-primary btn-xs back-button" (click)="back()" *ngIf="postSuperior"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
+          <li *ngFor="let response of post.responses" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h4 class="mb-1">
+                {{response.id.user.name}}
+                <small class="pull-right">{{formatDate(response.id.dateTime)}}</small>
+              </h4>
+              
+            </div>
+            <p class="mb-1 post-content">{{response.content}}</p>
+            <small>{{response.location.adress}}</small>
+            <small class="geolocation" *ngIf="post.location">{{response.location.latitude}}, {{response.location.longitude}}</small>
+            <small class="temperature">{{response.currentTemperature}}</small>
+
+            <a href="javascript:void(0)" (click)="getResponses(response, false)" class="badge badge-default badge-pill">
+              {{response.responseAmount}}
+            </a>
+
+            <nav>
+              <ul class="list-inline">
+                <li *ngIf="!response.reply"><a href="javascript:void(0)" (click)="initReply(response)">Reply</a></li>
+                <li><a href="javascript:void(0)" *ngIf="deleteAllowed(response.id)" (click)="deletePost(response.id)">Delete</a></li>
+              </ul>
+            </nav>
+
+            <div *ngIf="response.reply">
+              <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment" [(ngModel)]="response.replyContent"></textarea>
+              </div>
+              <p class="button-reply">
+                <button class="btn btn-success btn-xs" (click)="reply(response.replyContent, response)">Reply</button>
+                <button class="btn btn-danger btn-xs" (click)="cancelReply(response)">Cancel</button>
+              </p>
+            </div>
+          </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section id="users">
+  
+</section>
+
+
+

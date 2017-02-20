@@ -1,0 +1,36 @@
+<div class="main-container">
+  <div class="alert alert-info" role="alert" *ngIf="infoMessage != null">{{infoMessage}}</div>
+  <div class="content">
+    <div class="register-container">
+      <div class="form-inline">
+        <section id="email" *ngIf="section == 'email'">
+          <div class="input-group">
+            <span class="input-group-addon">@</span>
+            <input type="email" class="form-control input-lg" placeholder="Email" size="30"
+                [(ngModel)]="user.email"
+                (keyup)="onKeyUp()">
+          </div>
+          <button class="btn btn-success btn-lg" [disabled]="emailOk == null || !emailOk" *ngIf="userFound == null || userFound"
+              (click)="ok()">Ok</button>
+          <button 
+              class="btn btn-danger btn-lg"
+              *ngIf="userFound != null && !userFound"
+              (click)="register()">Register</button>
+        </section>
+        <section id="name" *ngIf="section == 'name'">
+          <div class="input-group">
+            <span class="input-group-addon">N</span>
+            <input type="email" class="form-control input-lg" placeholder="Name" size="30"
+                [(ngModel)]="user.name"
+                (keyup)="onKeyUp()">
+          </div>
+          <button class="btn btn-success btn-lg" [disabled]="nameOk == null || !nameOk" *ngIf="true"
+              (click)="saveUser()">Go</button>
+          <button class="btn btn-danger btn-xs" (click)="cancel()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

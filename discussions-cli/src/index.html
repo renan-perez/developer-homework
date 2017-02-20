@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>DiscussionsCli</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/font-awesome.css">
+</head>
+<body>
+  <app-root>Loading...</app-root>
+
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/bootstrap-confirmation.min.js"></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASo74LM2amvefCtv5bXhy11Gmv_UYVkCU&callback=initMap"></script>
+
+  
+<script>
+
+window.onload = function() {
+  initMap();
+};
+  // Note: This example requires that you consent to location sharing when
+  // prompted by your browser. If you see the error "The Geolocation service
+  // failed.", it means you probably did not give permission for the browser to
+  // locate you.
+
+  function initMap() {
+    console.log('MAP');
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    console.log('TRUE');
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+
+      localStorage.setItem("latitude", pos.lat);
+      localStorage.setItem("longitude", pos.lng);
+      localStorage.setItem("browserHasGeolocation", true);
+      console.log(localStorage);
+
+    });
+  } else {
+    console.log('FALSE');
+    localStorage.setItem("browserHasGeolocation", false);
+  }
+}
+</script>
+
+</body>
+</html>
