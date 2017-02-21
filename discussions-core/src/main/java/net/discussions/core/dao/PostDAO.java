@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.discussions.core.exception.SystemException;
 import net.discussions.core.model.Post;
@@ -23,6 +24,7 @@ public class PostDAO extends GenericDAO<Post, PostId> {
 		}
 	}
 	
+	@Transactional
 	public void delete(final PostId id) throws SystemException {
 		super.delete(Post.class, id);
 	}

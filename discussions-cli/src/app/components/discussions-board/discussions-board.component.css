@@ -47,3 +47,28 @@ textarea {
     font-size: 0.8em;
     color: black;
 }
+
+.post-content {
+    vertical-align: middle;
+    background-color: #efefef;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.geolocation::before {
+    font-family: FontAwesome;
+    margin-left: 10px;
+    margin-right: 5px;
+    content: "\f124";
+}
+
+.temperature::before {
+    font-family: FontAwesome;
+    margin-left: 10px;
+    margin-right: 5px; 
+    content: "\f2c9";
+}
+
+.temperature::after { 
+    content: "°C";
+}

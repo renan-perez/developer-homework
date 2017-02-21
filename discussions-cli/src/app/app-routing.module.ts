@@ -5,10 +5,11 @@ import { RegisterComponent }        from './components/register/register.compone
 import { DiscussionsBoardComponent } from './components/discussions-board/discussions-board.component';
 
 const routes: Routes = [
-    { path: '',                             redirectTo: '/discussions', pathMatch: 'full' },
-    { path: 'discussions',                  component: RegisterComponent },
-    { path: 'discussions/discussionsBoard',   component: DiscussionsBoardComponent },
-    { path: '**',           redirectTo: 'discussions', pathMatch: 'full' },
+
+    { path: '',                                 redirectTo: 'discussions', pathMatch: 'full' },
+    { path: 'discussions',                      component: RegisterComponent },
+    { path: 'discussions/discussionsBoard',     component: DiscussionsBoardComponent },
+    { path: '**',                               redirectTo: 'discussions', pathMatch: 'full' },
 ];
 
 @NgModule({

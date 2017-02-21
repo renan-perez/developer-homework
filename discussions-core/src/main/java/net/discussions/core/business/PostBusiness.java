@@ -22,7 +22,7 @@ public class PostBusiness {
 	
 	@Transactional
 	public Post saveOrUpdatePost(final Post post) throws SystemException {
-		if (post.getLocation().getId() == null)
+		if (post.getLocation() != null && post.getLocation().getId() == null)
 			locationDAO.saveOrUpdate(post.getLocation());
 		return postDAO.saveOrUpdate(post);
 	}

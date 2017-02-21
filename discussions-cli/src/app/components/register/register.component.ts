@@ -35,7 +35,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.user = new User();
-    this.user.email = 'reperez.rp@gmail.com';
+    this.user.email = null;
     this.userFound = null;
     this.emailOk = false;
     this.nameOk = false;
