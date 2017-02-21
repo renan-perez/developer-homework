@@ -146,7 +146,7 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
       let city = localStorage.getItem("city");
       let region = localStorage.getItem("regions");
       let weatherInformation: any;
-      this.weatherService.getWeatherInformation(city, region)
+      this.weatherService.getWeatherInformation(city)
             .subscribe(
               (response: any) => weatherInformation = response,
               err => console.log(err),
@@ -157,7 +157,7 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
 
   validateWatherInformation(weatherInformation: any) {
     if (weatherInformation != null) {
-      this.temperature = Math.trunc(weatherInformation.main.temp);
+      this.temperature = Math.trunc(weatherInformation.current.temp_c);
     }
   }
 

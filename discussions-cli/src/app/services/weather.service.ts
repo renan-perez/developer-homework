@@ -11,14 +11,14 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WeatherService extends BaseService<null, null> {
 
-  private getWeatherInformationURL = 'http://api.openweathermap.org/data/2.5/weather?q';
+  private getWeatherInformationURL = 'https://api.apixu.com/v1/current.json?key=b6d753b662d740c4b56220324172102&q=';
 
   constructor(protected http: Http) { 
     super(http);
   }
 
-  getWeatherInformation(city: String, region: String) {
-    let url = `${this.getWeatherInformationURL}=${city},${region}&appid=4b90179de79431c1b1814aca1849e141&units=metric`;
+  getWeatherInformation(city: String) {
+    let url = `${this.getWeatherInformationURL}=${city}`;
     return this.http
                 .get(url, { headers: this.getHeaders(RequestMethod.Get) })
                 .map(response => response.json())

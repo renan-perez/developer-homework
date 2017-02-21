@@ -93,7 +93,7 @@
             </div>
             <p class="mb-1 post-content">{{response.content}}</p>
             <small *ngIf="response.location">{{response.location.adress}}</small>
-            <small class="geolocation" *ngIf="response.location != null">{{response.location.latitude}}, {{response.location.longitude}}</small>
+            <small class="geolocation" *ngIf="response.location != null">{{truncate(response.location.latitude)}}, {{truncate(response.location.longitude)}}</small>
             <small class="temperature" *ngIf="response.currentTemperature != null">{{response.currentTemperature}}</small>
 
             <a href="javascript:void(0)" (click)="getResponses(response, false)" class="badge badge-default badge-pill">

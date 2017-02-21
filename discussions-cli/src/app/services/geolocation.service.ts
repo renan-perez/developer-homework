@@ -15,7 +15,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class GeolocationService extends BaseService<Location, Number> {
 
-  private getGeolocationInformationURL = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=';
+  private getGeolocationInformationURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 
   constructor(protected http: Http) { 
     super(http);
