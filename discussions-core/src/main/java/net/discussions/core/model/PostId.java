@@ -22,6 +22,10 @@ public class PostId implements Serializable {
 	public PostId() {
 	}
 	
+	public PostId(String email) {
+		this.user = new User(email);
+	}
+	
 	public PostId(String email, LocalDateTime datetime) {
 		this.user = new User(email);
 		this.dateTime = datetime;

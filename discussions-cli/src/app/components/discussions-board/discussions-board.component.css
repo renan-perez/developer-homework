@@ -1,6 +1,6 @@
 .posts-content {
     max-width: 600px;
-    margin: 10px;
+    margin: 10px auto;
 }
 
 textarea {
@@ -21,4 +21,29 @@ textarea {
 
 .back-button {
     margin-bottom: 10px;
+}
+
+.side-bar {
+    position: relative;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.logged-user {
+    font-weight: bolder;
+    color: #4ed34e;
+}
+
+.menu-option {
+    font-weight: bolder;
+    color: grey;
+    margin-left: 5px;
+    margin-bottom: 0;
+    margin-top: 5px;
+    padding: 0;
+}
+
+.menu-option i {
+    font-size: 0.8em;
+    color: black;
 }

@@ -60,6 +60,13 @@ public class Post implements Serializable {
 	private Post superiorPost;
 	private Long responseAmount;
 	
+	public Post() {
+	}
+	
+	public Post(String email) {
+		this.id = new PostId(email);
+	}
+	
 	@EmbeddedId
 	public PostId getId() {
 		return id;

@@ -1,4 +1,30 @@
 .register-container {
-    width: 37em;
+    max-width: 37em;
     margin: 0 auto;
+}
+
+.title {
+    color: white;
+}
+
+.alert-message {
+    margin-top: 40px; 
+}
+
+@media only screen and (max-width: 450px) {
+
+   .btn-register {
+       display: inline-block;
+       width:100%;
+   }
+
+   .btn-cancel {
+       float: right;
+   }
+
+   .title {
+        color: white;
+        text-align: center;
+    }
+
 }

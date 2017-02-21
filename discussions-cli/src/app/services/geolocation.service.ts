@@ -24,7 +24,7 @@ export class GeolocationService extends BaseService<Location, Number> {
   getLocation(latitude: String, longitude: String) {
     let url = `${this.getGeolocationInformationURL}${latitude},${longitude}`;
     return this.http
-                .get(url.toString(), { headers: this.getHeaders(RequestMethod.Get) })
+                .get(url, { headers: this.getHeaders(RequestMethod.Get) })
                 .map(response => response.json())
                 .catch(this.handleError);
   }

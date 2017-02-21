@@ -1,6 +1,40 @@
+
+
+
 <section class="posts-content">
+
+  <nav class="side-bar">
+  <div class="btn-group">
+  <button type="button" class="btn btn-success"><i class="fa fa-comments" aria-hidden="true"></i> Discussions</button>
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+
+    <li class="sidebar-brand">
+        <p class="menu-option"><i class="fa fa-bars" aria-hidden="true"></i> Options</p>
+    </li>
+
+    <li class="sidebar-brand">
+        <a routerLink="/discussions" skipLocationChange>Logout</a>
+    </li>
+
+    <li class="sidebar-brand">
+        <p class="menu-option"><i class="fa fa-user-o" aria-hidden="true"></i> Users</p>
+    </li>
+    <li class="sidebar-brand">
+        <a href="javascript:void(0)" class="logged-user" (click)="changeUser(loggedUser)">{{ loggedUser.name }}</a>
+    </li>
+
+    <li *ngFor="let u of users" class="sidebar-brand">
+        <a href="javascript:void(0)" (click)="changeUser(u)" *ngIf="u.email != loggedUser.email">{{ u.name }}</a>
+    </li>
+  </ul>
+  </div>
+</nav>
+
   <ul class="list-group">
-    <li *ngIf="!postSuperior" class="list-group-item list-group-item-action flex-column align-items-start">
+    <li *ngIf="!postSuperior && user == loggedUser" class="list-group-item list-group-item-action flex-column align-items-start">
       <div>
         <div class="form-group">
           <label for="comment">Comment:</label>
@@ -21,8 +55,8 @@
       </div>
       <p class="mb-1 post-content">{{post.content}}</p>
       <small>{{post.location.adress}}</small>
-      <small class="geolocation" *ngIf="post.location">{{post.location.latitude}}, {{post.location.longitude}}</small>
-      <small class="temperature">{{post.currentTemperature}}</small>
+      <small class="geolocation" *ngIf="post.location">{{truncate(post.location.latitude)}}, {{truncate(post.location.longitude)}}</small>
+      <small class="temperature" *ngIf="post.currentTemperature != null">{{post.currentTemperature}}</small>
       
       <a href="javascript:void(0)" (click)="getResponses(post, false)" class="badge badge-default badge-pill">
         {{post.responseAmount}}
@@ -59,8 +93,8 @@
             </div>
             <p class="mb-1 post-content">{{response.content}}</p>
             <small>{{response.location.adress}}</small>
-            <small class="geolocation" *ngIf="post.location">{{response.location.latitude}}, {{response.location.longitude}}</small>
-            <small class="temperature">{{response.currentTemperature}}</small>
+            <small class="geolocation" *ngIf="response.location != null">{{response.location.latitude}}, {{response.location.longitude}}</small>
+            <small class="temperature" *ngIf="response.currentTemperature != null">{{response.currentTemperature}}</small>
 
             <a href="javascript:void(0)" (click)="getResponses(response, false)" class="badge badge-default badge-pill">
               {{response.responseAmount}}
@@ -88,9 +122,3 @@
     </li>
   </ul>
 </section>
-<section id="users">
-  
-</section>
-
-
-

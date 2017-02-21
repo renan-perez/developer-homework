@@ -1,0 +1,4 @@
+net\discussions\core\test\PostControllerUnitTest.class
+net\discussions\core\test\UserControllerUnitTest.class
+net\discussions\core\test\TestContext.class
+net\discussions\core\test\CORSFilter.class

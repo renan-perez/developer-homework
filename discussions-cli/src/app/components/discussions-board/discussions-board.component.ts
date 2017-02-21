@@ -8,6 +8,8 @@ import { SystemResponse } from '../../model/system-response';
 
 import { PostService } from '../../services/post.service';
 import { GeolocationService } from '../../services/geolocation.service';
+import { WeatherService } from '../../services/weather.service';
+import { UserService } from '../../services/user.service';
 
 import { BaseComponent } from '../base.component';
 
@@ -20,15 +22,21 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
 
   private userPosts: Post[];
   private user: User;
+  private loggedUser: User;
+  private users: User[];
+  private systemResponseUsers: SystemResponse<User[]>;
   private postSuperior: Post;
   private systemResponsePost: SystemResponse<Post>;
   private systemResponsePosts: SystemResponse<Post[]>;
   private systemResponseResponses: SystemResponse<Post[]>;
   private commentContent: String;
+  private temperature: Number;
 
   constructor(
     private postService: PostService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private weatherService: WeatherService,
+    private userService: UserService
   ) { 
     super();
   }
@@ -36,10 +44,11 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
   ngOnInit() {
     
     this.user = this.getLoggedUser();
-    this.user.name = localStorage.getItem("currentUserName");
-    this.user.email = localStorage.getItem("currentUserEmail");
+    this.loggedUser = this.user;
     this.listPostsUserByEmail(this.user.email);
     this.getGeolocation();
+    this.getWeatherInformation();
+    this.listUsers();
   }
 
   getLoggedUser() {
@@ -55,6 +64,20 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
             (response: SystemResponse<Post[]>) => this.systemResponsePosts = response,
             err => console.log(err),
             () => this.validatePostsResponse(this.systemResponsePosts)
+          );
+  }
+
+  changeUser(user: User) {
+    this.user = user;
+    this.listPostsUserByEmail(user.email);
+  }
+
+  listUsers() {
+    this.userService.listUser()
+          .subscribe(
+            (response: SystemResponse<User[]>) => this.systemResponseUsers = response,
+            err => console.log(err),
+            () => this.validateUsersResponse(this.systemResponseUsers)
           );
   }
 
@@ -101,8 +124,7 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
   }
 
   deleteAllowed(id: PostId) {
-    let loggedUser = this.getLoggedUser();
-    return loggedUser.email == id.user.email;
+    return this.loggedUser.email == id.user.email;
   }
 
   getGeolocation() {
@@ -119,15 +141,34 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
     }
   }
 
+  getWeatherInformation() {
+    if (localStorage.getItem("browserHasGeolocation") == 'true') {
+      let city = localStorage.getItem("city");
+      let region = localStorage.getItem("regions");
+      let weatherInformation: any;
+      this.weatherService.getWeatherInformation(city, region)
+            .subscribe(
+              (response: any) => weatherInformation = response,
+              err => console.log(err),
+              () => this.validateWatherInformation(weatherInformation)
+            );
+    }
+  }
+
+  validateWatherInformation(weatherInformation: any) {
+    if (weatherInformation != null) {
+      this.temperature = Math.trunc(weatherInformation.main.temp);
+    }
+  }
+
   validateGeolocalization(geolocation: any) {
     if (geolocation != null && geolocation.results[1].formatted_address != undefined) {
       let formatedAdress = geolocation.results[1].formatted_address;
       localStorage.setItem("adress", formatedAdress);
 
-      let adress: String[] = formatedAdress.split(',', 3);
-      localStorage.setItem("city", formatedAdress);
-      localStorage.setItem("region", formatedAdress);
-      localStorage.setItem("country", formatedAdress);
+      let adress: String[] = formatedAdress.split(',', 2);
+      localStorage.setItem("city", adress[0].trim());
+      localStorage.setItem("region", adress[1].trim());
     }
   }
 
@@ -152,6 +193,12 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
     if(response != null && response.content != null) {
       this.userPosts = response.content;
       this.postSuperior = null;
+    }
+  }
+
+  validateUsersResponse(response: SystemResponse<User[]>) {
+    if(response != null && super.validateResponse(response.status)) {
+      this.users = response.content;
     }
   }
 
@@ -180,13 +227,13 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
 
   private createPostInstance(content: String, superiorPost: Post) {
     let id: PostId = new PostId();
-    id.user = this.getLoggedUser();
+    id.user = this.loggedUser;
    
     let newPost: Post = new Post();
     newPost.id = id;
     newPost.content = content;
     newPost.superiorPost = superiorPost;
-    newPost.currentTemperature = 1;
+    newPost.currentTemperature = this.temperature;
     newPost.location = this.getLocationsInstance();
     return newPost;
   }
@@ -200,6 +247,13 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
       return location;
     } 
     return null;
+  }
+
+  truncate(coords: String) {
+    if (coords.charAt(0) == '-') {
+      return coords.substring(0,6);
+    }
+    return coords.substring(0,5);
   }
 
 }

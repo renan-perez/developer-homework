@@ -1,8 +1,9 @@
 <div class="main-container">
-  <div class="alert alert-info" role="alert" *ngIf="infoMessage != null">{{infoMessage}}</div>
+  <div class="alert alert-warning alert-message" role="alert" *ngIf="infoMessage != null">{{infoMessage}}</div>
   <div class="content">
     <div class="register-container">
       <div class="form-inline">
+        <h2 class="title"><i class="fa fa-comments" aria-hidden="true"></i> Discussions</h2>
         <section id="email" *ngIf="section == 'email'">
           <div class="input-group">
             <span class="input-group-addon">@</span>
@@ -10,10 +11,10 @@
                 [(ngModel)]="user.email"
                 (keyup)="onKeyUp()">
           </div>
-          <button class="btn btn-success btn-lg" [disabled]="emailOk == null || !emailOk" *ngIf="userFound == null || userFound"
+          <button class="btn btn-success btn-lg btn-register" [disabled]="emailOk == null || !emailOk" *ngIf="userFound == null || userFound"
               (click)="ok()">Ok</button>
           <button 
-              class="btn btn-danger btn-lg"
+              class="btn btn-danger btn-lg btn-register"
               *ngIf="userFound != null && !userFound"
               (click)="register()">Register</button>
         </section>
@@ -24,9 +25,9 @@
                 [(ngModel)]="user.name"
                 (keyup)="onKeyUp()">
           </div>
-          <button class="btn btn-success btn-lg" [disabled]="nameOk == null || !nameOk" *ngIf="true"
+          <button class="btn btn-success btn-lg btn-register" [disabled]="nameOk == null || !nameOk" *ngIf="true"
               (click)="saveUser()">Go</button>
-          <button class="btn btn-danger btn-xs" (click)="cancel()">
+          <button class="btn btn-danger btn-xs btn-cancel" (click)="cancel()">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </section>

@@ -50,4 +50,5 @@ public class JPAConfiguration {
         properties.setProperty("hibernate.show_sql", "true");
         return properties;
     }
+    
 }

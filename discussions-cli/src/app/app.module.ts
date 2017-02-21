@@ -12,6 +12,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { UserService } from './services/user.service';
 import { PostService } from './services/post.service';
 import { GeolocationService } from './services/geolocation.service';
+import { WeatherService } from './services/weather.service';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { GeolocationService } from './services/geolocation.service';
   providers: [
     PostService,
     UserService,
-    GeolocationService
+    GeolocationService,
+    WeatherService
   ],
   bootstrap: [AppComponent]
 })

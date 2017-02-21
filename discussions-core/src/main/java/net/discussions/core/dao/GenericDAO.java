@@ -18,7 +18,7 @@ import net.discussions.core.exception.SystemException;
 @Repository
 public class GenericDAO<T, ID extends Serializable> {
 
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager manager;
     
     @Transactional

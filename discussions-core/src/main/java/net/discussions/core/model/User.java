@@ -14,7 +14,13 @@ import javax.persistence.Table;
 			name = "User.getByEmail",
 			query = "SELECT	u "
 				+ 	"FROM	User	u "
-				+ 	"WHERE	u.email = :email")
+				+ 	"WHERE	u.email = :email"),
+	@NamedQuery(
+			name = "User.list",
+			query = "SELECT DISTINCT u "
+				+ 	"FROM	User u, "
+				+ 	"		Post p "
+				+ 	"WHERE	u.email = p.id.user.email")
 })
 
 @Entity
@@ -30,6 +36,11 @@ public class User implements Serializable {
 	
 	public User(String email) {
 		this.email = email;
+	}
+	
+	public User(String email, String name) {
+		this.email = email;
+		this.name = name;
 	}
 	
 	@Id

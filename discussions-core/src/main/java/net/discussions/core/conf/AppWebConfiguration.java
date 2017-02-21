@@ -13,6 +13,7 @@ import net.discussions.core.business.PostBusiness;
 import net.discussions.core.business.UserBusiness;
 import net.discussions.core.controller.PostController;
 import net.discussions.core.controller.UserController;
+import net.discussions.core.dao.GenericDAO;
 import net.discussions.core.dao.LocationDAO;
 import net.discussions.core.dao.PostDAO;
 import net.discussions.core.dao.UserDAO;
@@ -22,7 +23,7 @@ import net.discussions.core.dao.UserDAO;
 		UserDAO.class, PostDAO.class, 
 		UserBusiness.class, PostBusiness.class,  
 		UserController.class, PostController.class,
-		LocationDAO.class })
+		LocationDAO.class, GenericDAO.class })
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Bean
@@ -36,4 +37,5 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**");
 	}
+
 }

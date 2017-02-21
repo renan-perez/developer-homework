@@ -1,7 +1,13 @@
 
-html {height: 100%}
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 body {
+    overflow-x: hidden;
+    padding: 0;
     margin: 0 auto;
     background-image: url('../img/background.jpg');
     background-attachment: fixed;
@@ -61,4 +67,8 @@ body {
     margin-left: 10px;
     margin-right: 5px; 
     content: "\f2c9";
+}
+
+.temperature::after { 
+    content: "°C";
 }
