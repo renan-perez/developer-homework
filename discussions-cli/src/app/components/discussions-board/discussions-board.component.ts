@@ -13,6 +13,8 @@ import { UserService } from '../../services/user.service';
 
 import { BaseComponent } from '../base.component';
 
+declare function showLocation(latitude: number, longitude: number , compId: string): void;
+
 @Component({
   selector: 'app-discussions-board',
   templateUrl: './discussions-board.component.html',
@@ -31,6 +33,8 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
   private systemResponseResponses: SystemResponse<Post[]>;
   private commentContent: String;
   private temperature: Number;
+  private mapId: String;
+  private mapIdIndex: any;
 
   constructor(
     private postService: PostService,
@@ -49,6 +53,8 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
     this.getGeolocation();
     this.getWeatherInformation();
     this.listUsers();
+    this.mapId = "";
+    this.mapIdIndex = 0;
   }
 
   getLoggedUser() {
@@ -254,6 +260,10 @@ export class DiscussionsBoardComponent extends BaseComponent  implements OnInit 
       return coords.substring(0,6);
     }
     return coords.substring(0,5);
+  }
+
+  showLocationMap(latitude: String, longitude: String, compId: string) {
+    //showLocation(Number(latitude), Number(longitude), compId);
   }
 
 }

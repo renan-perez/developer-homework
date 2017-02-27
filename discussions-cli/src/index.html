@@ -8,21 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/font-awesome.css">
-  <link rel="stylesheet" href="assets/css/simple-sidebar.css">
 </head>
 <body>
+
   <app-root>Loading...</app-root>
 
   <script src="assets/js/jquery.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/bootstrap-confirmation.min.js"></script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASo74LM2amvefCtv5bXhy11Gmv_UYVkCU&callback=initMap"></script>
-
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASo74LM2amvefCtv5bXhy11Gmv_UYVkCU"></script>
   
 <script>
+
+var pos = null;
 
 window.onload = function() {
   initMap();
@@ -36,7 +35,7 @@ window.onload = function() {
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
+    pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
@@ -44,12 +43,16 @@ window.onload = function() {
       localStorage.setItem("latitude", pos.lat);
       localStorage.setItem("longitude", pos.lng);
       localStorage.setItem("browserHasGeolocation", true);
+
     });
+
+    
   } else {
     localStorage.setItem("browserHasGeolocation", false);
   }
 }
 </script>
+
 
 </body>
 </html>
