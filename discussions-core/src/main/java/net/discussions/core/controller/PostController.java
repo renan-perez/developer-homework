@@ -78,7 +78,7 @@ public class PostController {
 	
 	@RequestMapping(value = "/teste", method = RequestMethod.GET)
 	public Response<String> listResponses() {
-		return new Response<String>(HttpStatus.OK, "", new String("SUCCESS"));
+		return new Response<String>(HttpStatus.OK, "", new String("SUCCESS!"));
 	}
 		
 }
