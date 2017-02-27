@@ -25,7 +25,7 @@ public class PostController {
 	private PostBusiness postBusiness;
 	
 	@RequestMapping(value = "/saveOrUpdatePost", method = RequestMethod.POST)
-	public Response<Post> saveOrUpdatePost(@RequestBody Post post) throws SystemException {
+	public Response<Post> saveOrUpdatePost(@RequestBody Post post) {
 		try {
 			return new Response<Post>(HttpStatus.OK, postBusiness.saveOrUpdatePost(post));
 		} catch (SystemException e) {
@@ -35,7 +35,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/deletePost", method = RequestMethod.POST)
-	public Response<Post> deletePost(@RequestBody PostId id) throws SystemException {
+	public Response<Post> deletePost(@RequestBody PostId id) {
 		try {
 			postBusiness.deletePost(id);
 			return new Response<Post>(HttpStatus.OK);
@@ -46,7 +46,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/getPostById", method = RequestMethod.GET)
-	public Response<Post> getPostById(@RequestBody PostId postId) throws SystemException {
+	public Response<Post> getPostById(@RequestBody PostId postId) {
 		try {
 			return new Response<Post>(HttpStatus.OK, postBusiness.getPostById(postId));
 		} catch (SystemException e) {
@@ -56,7 +56,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/listPostsByUserEmail/{email}", method = RequestMethod.GET)
-	public Response<List<Post>> listPostsByUserEmail(@PathVariable String email) throws SystemException {
+	public Response<List<Post>> listPostsByUserEmail(@PathVariable String email) {
 		try {
 			return new Response<List<Post>>(HttpStatus.OK, postBusiness.listPostsByUserEmail(email));
 		} catch (SystemException e) {
@@ -66,7 +66,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value = "/listResponses/{email}/{dateTime}", method = RequestMethod.GET)
-	public Response<List<Post>> listResponses(@PathVariable String email, @PathVariable String dateTime) throws SystemException {
+	public Response<List<Post>> listResponses(@PathVariable String email, @PathVariable String dateTime) {
 		try {
 			return new Response<List<Post>>(HttpStatus.OK, postBusiness.listResponses(
 																new PostId(email, DateUtil.stringToLocalDateTime(dateTime))));
@@ -74,6 +74,11 @@ public class PostController {
 			e.printStackTrace();
 			return new Response<List<Post>>(HttpStatus.INTERNAL_SERVER_ERROR, "Error trying to find response(s)! Try again latter.");
 		}
+	}
+	
+	@RequestMapping(value = "/teste", method = RequestMethod.GET)
+	public Response<String> listResponses() {
+		return new Response<String>(HttpStatus.OK, "", new String("SUCCESS"));
 	}
 		
 }
